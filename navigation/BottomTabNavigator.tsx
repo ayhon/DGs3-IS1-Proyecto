@@ -8,7 +8,8 @@ import useColorScheme from "../hooks/useColorScheme";
 import TabOneScreen from "../screens/TabOneScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import ChatScreen from "../screens/ChatScreen";
-import LoginScreen from "../screens/LoginScreen.tsx";
+import LoginScreen from "../screens/LoginScreen";
+import SignupScreen from "../screens/SignupScreen";
 
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
 
@@ -52,6 +53,15 @@ export default function BottomTabNavigator() {
       <BottomTab.Screen
         name="LoginScreen"
         component={LoginScreenNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="ios-code" color={color} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="SignupScreen"
+        component={SignupScreenNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="ios-code" color={color} />
@@ -126,3 +136,16 @@ function LoginScreenNavigator() {
   );
 }
 
+const SignupScreenStack = createStackNavigator();
+
+function SignupScreenNavigator() {
+  return (
+    <SignupScreenStack.Navigator>
+      <SignupScreenStack.Screen
+        name="SignupScreen"
+        component={SignupScreen}
+        options={{ headerShown: false }}
+      />
+    </SignupScreenStack.Navigator>
+  );
+}
