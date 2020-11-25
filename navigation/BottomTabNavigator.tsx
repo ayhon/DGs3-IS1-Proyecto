@@ -10,6 +10,7 @@ import TabTwoScreen from "../screens/TabTwoScreen";
 import ChatScreen from "../screens/ChatScreen";
 import LoginScreen from "../screens/LoginScreen";
 import SignupScreen from "../screens/SignupScreen";
+import Conversations from "../screens/Conversations";
 
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
 
@@ -53,6 +54,15 @@ export default function BottomTabNavigator() {
       <BottomTab.Screen
         name="LoginScreen"
         component={LoginScreenNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="ios-code" color={color} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Conversations"
+        component={ConversationsNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="ios-code" color={color} />
@@ -147,5 +157,19 @@ function SignupScreenNavigator() {
         options={{ headerShown: false }}
       />
     </SignupScreenStack.Navigator>
+  );
+}
+
+const ConversationsStack = createStackNavigator();
+
+function ConversationsNavigator() {
+  return (
+    <ConversationsStack.Navigator>
+      <ConversationsStack.Screen
+        name="Conversations"
+        component={Conversations}
+        options={{ headerShown: false }}
+      />
+    </ConversationsStack.Navigator>
   );
 }
