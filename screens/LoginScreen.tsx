@@ -71,7 +71,7 @@ export default function LoginScreen({ navigation }) {
 
                     <Button icon="login" mode="outlined" onPress={register}>
                         Register
-                </Button>
+                    </Button>
                 </View>
 
                 <Snackbar
@@ -83,8 +83,6 @@ export default function LoginScreen({ navigation }) {
         </PaperProvider>
     );
 }
-
-const accentColor = "#0039a2";
 
 const styles = StyleSheet.create({
     container: {
