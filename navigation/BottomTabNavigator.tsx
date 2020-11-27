@@ -5,8 +5,6 @@ import * as React from "react";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import TabOneScreen from "../screens/TabOneScreen";
-import TabTwoScreen from "../screens/TabTwoScreen";
 import ChatScreen from "../screens/ChatScreen";
 import LoginScreen from "../screens/LoginScreen";
 import SignupScreen from "../screens/SignupScreen";
@@ -17,159 +15,111 @@ import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
 const BottomTab = createBottomTabNavigator();
 
 export default function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
+    const colorScheme = useColorScheme();
 
-  return (
-    <BottomTab.Navigator
-      initialRouteName="TabOne"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
-    >
-      <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="ChatScreen"
-        component={ChatScreenNavigator}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-chatbubbles" color={color} />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="LoginScreen"
-        component={LoginScreenNavigator}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="Conversations"
-        component={ConversationsNavigator}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="SignupScreen"
-        component={SignupScreenNavigator}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
-          ),
-        }}
-      />
-    </BottomTab.Navigator>
-  );
+    return (
+        <BottomTab.Navigator
+            initialRouteName="ChatScreen"
+            tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+        >
+            <BottomTab.Screen
+                name="ChatScreen"
+                component={ChatScreenNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="ios-chatbubbles" color={color} />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="LoginScreen"
+                component={LoginScreenNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="ios-code" color={color} />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="Conversations"
+                component={ConversationsNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="ios-code" color={color} />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="SignupScreen"
+                component={SignupScreenNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="ios-code" color={color} />
+                    ),
+                }}
+            />
+        </BottomTab.Navigator>
+    );
 }
 
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
 function TabBarIcon(props: { name: string; color: string }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
-}
-
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
-
-function TabOneNavigator() {
-  return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: "Tab One Title" }}
-      />
-    </TabOneStack.Navigator>
-  );
-}
-
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
-
-function TabTwoNavigator() {
-  return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: "Tab Two Title" }}
-      />
-    </TabTwoStack.Navigator>
-  );
+    return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
 const ChatScreenStack = createStackNavigator();
 
 function ChatScreenNavigator() {
-  return (
-    <ChatScreenStack.Navigator>
-      <ChatScreenStack.Screen
-        name="ChatScreen"
-        component={ChatScreen}
-        options={{ headerShown: false }}
-      />
-    </ChatScreenStack.Navigator>
-  );
+    return (
+        <ChatScreenStack.Navigator>
+            <ChatScreenStack.Screen
+                name="ChatScreen"
+                component={ChatScreen}
+                options={{ headerShown: false }}
+            />
+        </ChatScreenStack.Navigator>
+    );
 }
 
 const LoginScreenStack = createStackNavigator();
 
 function LoginScreenNavigator() {
-  return (
-    <LoginScreenStack.Navigator>
-      <LoginScreenStack.Screen
-        name="LoginScreen"
-        component={LoginScreen}
-        options={{ headerShown: false }}
-      />
-    </LoginScreenStack.Navigator>
-  );
+    return (
+        <LoginScreenStack.Navigator>
+            <LoginScreenStack.Screen
+                name="LoginScreen"
+                component={LoginScreen}
+                options={{ headerShown: false }}
+            />
+        </LoginScreenStack.Navigator>
+    );
 }
 
 const SignupScreenStack = createStackNavigator();
 
 function SignupScreenNavigator() {
-  return (
-    <SignupScreenStack.Navigator>
-      <SignupScreenStack.Screen
-        name="SignupScreen"
-        component={SignupScreen}
-        options={{ headerShown: false }}
-      />
-    </SignupScreenStack.Navigator>
-  );
+    return (
+        <SignupScreenStack.Navigator>
+            <SignupScreenStack.Screen
+                name="SignupScreen"
+                component={SignupScreen}
+                options={{ headerShown: false }}
+            />
+        </SignupScreenStack.Navigator>
+    );
 }
 
 const ConversationsStack = createStackNavigator();
 
 function ConversationsNavigator() {
-  return (
-    <ConversationsStack.Navigator>
-      <ConversationsStack.Screen
-        name="Conversations"
-        component={Conversations}
-        options={{ headerShown: false }}
-      />
-    </ConversationsStack.Navigator>
-  );
+    return (
+        <ConversationsStack.Navigator>
+            <ConversationsStack.Screen
+                name="Conversations"
+                component={Conversations}
+                options={{ headerShown: false }}
+            />
+        </ConversationsStack.Navigator>
+    );
 }
