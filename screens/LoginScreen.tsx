@@ -1,68 +1,107 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React from "react";
 import {
-  TouchableOpacity,
-  TextInput,
-  StyleSheet,
-  View,
-  Text,
+    KeyboardAvoidingView,
+    Platform,
+    StyleSheet,
+    View,
+    Image
 } from "react-native";
 
-export default function TabTwoScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Scichat Login</Text>
-      <TextInput style={styles.input} placeholder="Name" />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        autoCompleteType="password"
-        secureTextEntry
-      />
-      <TouchableOpacity>
-        <View style={styles.button}>
-          <Text style={styles.buttonText}>Continue</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
-  );
+import {
+    TextInput,
+    Button,
+    Title,
+    Provider as PaperProvider,
+    Snackbar
+} from 'react-native-paper';
+
+const credentials = {
+    username: "Scichat",
+    passowrd: "12345"
+};
+
+export default function LoginScreen({ navigation }) {
+    const [username, setUsername] = React.useState('');
+    const [password, setPassword] = React.useState('');
+
+    const [visible, setVisible] = React.useState(false);
+    const onToggleSnackBar = () => setVisible(!visible);
+    const onDismissSnackBar = () => setVisible(false);
+
+    const logIn = () => {
+        if (username == credentials.username && password == credentials.passowrd) {
+            console.log(`Login successfully`);
+            navigation.replace('Conversations')
+        }
+        else {
+            onToggleSnackBar();
+        }
+    }
+
+    const register = () => {
+        navigation.navigate('SignupScreen');
+    }
+
+    return (
+        <PaperProvider>
+            <KeyboardAvoidingView
+                behavior={Platform.OS == "ios" ? "padding" : undefined}
+                style={styles.container}
+            >
+                <Image source={{ uri: "https://i.imgur.com/ibKSsXA.png" }} style={{ width: 100, height: 100 }} />
+                <Title style={styles.title}>Scichat Login</Title>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Username"
+                    value={username}
+                    onChangeText={(text) => { setUsername(text) }} />
+
+                <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    autoCompleteType="password"
+                    secureTextEntry
+                    onChangeText={(text) => { setPassword(text) }}
+                />
+
+                <View style={{ display: "flex", flexDirection: "column" }}>
+                    <Button icon="login" mode="contained" onPress={logIn} style={{ marginBottom: 10 }}>
+                        Log in
+                    </Button>
+
+                    <Button icon="login" mode="outlined" onPress={register}>
+                        Register
+                </Button>
+                </View>
+
+                <Snackbar
+                    visible={visible}
+                    onDismiss={onDismissSnackBar}>
+                    Wrong credentials
+                </Snackbar>
+            </KeyboardAvoidingView>
+        </PaperProvider>
+    );
 }
 
 const accentColor = "#0039a2";
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    margin: 10,
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-  input: {
-    borderColor: accentColor,
-    borderBottomWidth: 1,
-    margin: 10,
-    padding: 5,
-    width: 200,
-  },
-  button: {
-    margin: 15,
-    height: 40,
-    width: 130,
-    backgroundColor: accentColor,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 80 / 12,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "900",
-  },
+    container: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        backgroundColor: "#fff"
+    },
+    title: {
+        fontSize: 25,
+        marginBottom: 20,
+    },
+    input: {
+        marginBottom: 10,
+        width: 200,
+        height: 50
+
+    }
 });
