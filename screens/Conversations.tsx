@@ -21,6 +21,7 @@ export default function Conversations({ navigation }: any) {
   return (
     <PaperProvider theme={theme}>
       <Headbar 
+        hasBack={false}
         back={()=>alert("Adios")} 
         title="Conversations" 
         sub="" 

@@ -5,7 +5,7 @@ function Headbar(props){
   
     return (
         <Appbar.Header>
-            <Appbar.BackAction onPress={props.back} />
+            {props.hasBack && <Appbar.BackAction onPress={props.back} />}
             <Avatar.Image size={36} source={require("../assets/images/icon.png" )} />
             <Appbar.Content title={props.title} subtitle={props.subtitle} />
             <Appbar.Action icon="dots-vertical" onPress={props.puntos} />
