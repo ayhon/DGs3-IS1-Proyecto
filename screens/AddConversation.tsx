@@ -13,7 +13,7 @@ interface iProfile {
 }
 
 export default function Conversations({ navigation }: any) {
-    const avatarSize = 50;
+    const avatarSize = 45;
     const [contacts, setContacts] = React.useState<iProfile[]>([]);
 
     if (!contacts.length) {

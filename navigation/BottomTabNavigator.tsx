@@ -5,6 +5,7 @@ import ChatScreen from "../screens/ChatScreen";
 import AuthScreen from "../screens/AuthScreen";
 import Conversations from "../screens/Conversations";
 import AddConversation from '../screens/AddConversation';
+import SettingsScreen from '../screens/SettingsScreen';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,10 @@ export default function BottomTabNavigator() {
             <Stack.Screen
                 name="AddConversation"
                 component={AddConversation}
+            />
+            <Stack.Screen
+                name="SettingsScreen"
+                component={SettingsScreen}
             />
         </Stack.Navigator>
     );
