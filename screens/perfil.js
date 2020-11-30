@@ -89,7 +89,7 @@ class Perfil extends React.Component{
                 <Campo 
                   name="Username" 
                   value={this.state.Username} 
-                  user={this.props.user}
+                  user={true}
                   edit={this.state.editName} 
                   onPress={this.editUserName} 
                   onChange={this.actualiza} 
@@ -100,7 +100,7 @@ class Perfil extends React.Component{
                 <Campo 
                   name="biography" 
                   value={this.state.biography} 
-                  user={this.props.user}
+                  user={true}
                   edit={this.state.editBio} 
                   onPress={this.editBiography} 
                   onChange={this.actualiza} 
