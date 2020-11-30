@@ -106,7 +106,7 @@ export default function Conversations({ navigation }: any) {
                 small
                 icon="plus"
                 label="Start a conversation"
-                onPress={() => console.log('Pressed')}
+                onPress={() => navigation.navigate('AddConversation')}
             />
         </>
     );
