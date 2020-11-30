@@ -22,7 +22,7 @@ const credentials = {
     passowrd: "12345",
 };
 
-const LoginForm = ({ navigation, setCurrentScreen }) => {
+const LoginForm = ({ navigation, setCurrentScreen, toggleSnackBar }) => {
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
 
@@ -31,13 +31,9 @@ const LoginForm = ({ navigation, setCurrentScreen }) => {
             console.log(`Login successfully`);
             navigation.replace("Conversations");
         } else {
-            onToggleSnackBar();
+            toggleSnackBar();
         }
     };
-
-    const [visible, setVisible] = React.useState(false);
-    const onToggleSnackBar = () => setVisible(!visible);
-    const onDismissSnackBar = () => setVisible(false);
 
     const register = () => {
         setCurrentScreen("register")
@@ -79,10 +75,6 @@ const LoginForm = ({ navigation, setCurrentScreen }) => {
                 Register
             </Button>
         </View>
-
-        <Snackbar visible={visible} onDismiss={onDismissSnackBar}>
-            Wrong credentials
-        </Snackbar>
     </>
 }
 
@@ -123,8 +115,8 @@ const RegisterForm = ({ navigation, setCurrentScreen }) => {
                 Register
             </Button>
 
-                <Button icon="account" mode="outlined" onPress={() => { setCurrentScreen("login") }}>
-                    I have an account
+            <Button icon="account" mode="outlined" onPress={() => { setCurrentScreen("login") }}>
+                I have an account
             </Button>
         </View>
     </>
@@ -132,6 +124,9 @@ const RegisterForm = ({ navigation, setCurrentScreen }) => {
 
 export default function AuthScreen({ navigation }: any) {
     const [currentScreen, setCurrentScreen] = React.useState("login");
+    const [visible, setVisible] = React.useState(false);
+    const onToggleSnackBar = () => setVisible(!visible);
+    const onDismissSnackBar = () => setVisible(false);
 
     return (
         <PaperProvider>
@@ -166,14 +161,16 @@ export default function AuthScreen({ navigation }: any) {
                     borderRadius: 8
                 }}>
                     {currentScreen == "login" ?
-                        <LoginForm navigation={navigation} setCurrentScreen={setCurrentScreen} />
+                        <LoginForm navigation={navigation} setCurrentScreen={setCurrentScreen} toggleSnackBar={onToggleSnackBar} />
                         :
                         <RegisterForm navigation={navigation} setCurrentScreen={setCurrentScreen} />
                     }
                 </Surface>
             </KeyboardAvoidingView>
 
-
+            <Snackbar visible={visible} onDismiss={onDismissSnackBar}>
+                Wrong credentials
+            </Snackbar>
         </PaperProvider>
     );
 }
