@@ -17,6 +17,8 @@ import {
     Surface,
 } from "react-native-paper";
 
+import * as LocalAuthentication from 'expo-local-authentication';
+
 const credentials = {
     username: "Scichat",
     passowrd: "12345",
@@ -26,13 +28,24 @@ const LoginForm = ({ navigation, setCurrentScreen, toggleSnackBar }) => {
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
 
-    const logIn = () => {
-        if (username == credentials.username && password == credentials.passowrd) {
-            console.log(`Login successfully`);
-            navigation.replace("Conversations");
-        } else {
+    const logIn = async () => {
+        if (!(username == credentials.username && password == credentials.passowrd)) {
             toggleSnackBar();
+            return;
         }
+
+        const localAuth = await LocalAuthentication.authenticateAsync({
+            promptMessage: "Login to Scich.at"
+        });
+
+        console.log(localAuth);
+        
+        if (!localAuth.success) {
+            toggleSnackBar();
+            return;
+        }
+
+        navigation.replace("Conversations");
     };
 
     const register = () => {
