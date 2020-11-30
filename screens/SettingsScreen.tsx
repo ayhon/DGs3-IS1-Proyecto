@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, View, Image, ScrollView } from "react-native";
-import conversationData from "../assets/demo/DummyConversations";
 import { Appbar, Avatar, Caption, FAB, List, Menu, Subheading, Title } from "react-native-paper";
 import { Profile } from '../constants/DemoUser';
 

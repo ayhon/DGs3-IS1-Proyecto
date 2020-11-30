@@ -1,21 +1,11 @@
 //import { StatusBar } from 'expo-status-bar';
 import {DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import React from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
-import UserData from '../UserData';
 import styles from "../components/Style.js"
 import Campo from '../components/Item.js'
-import { Appbar, Avatar } from 'react-native-paper';
-
-const theme = {
-  ...DefaultTheme,
-  roundness: 2,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: '#ddd56e',
-    accent: 'grey',
-  },
-};
+import { TextInput, View, Image, ScrollView, Text, TouchableOpacity } from "react-native";
+import { Appbar, Avatar, FAB, Button, List, Menu, Subheading, Title } from "react-native-paper";
+import { Profile } from '../constants/DemoUser';
 
 const Headbar = (props) => {
 
@@ -36,8 +26,8 @@ class Perfil extends React.Component{
     constructor(){
         super()
         this.state={
-            Username: UserData.Username,
-            biography: UserData.Biografia,
+            Username: Profile.name,
+            biography: Profile.biography,
             editBio: false,
             editName: false,
         }
@@ -52,12 +42,12 @@ class Perfil extends React.Component{
     }
       
      editUserName(){
-         if(this.state.editName)UserData.Username=this.state.Username
+         if(this.state.editName)Profile.name=this.state.Username
         this.setState({editName:!this.state.editName})
     }
       
      editBiography(){
-        if(this.state.editBio)UserData.biography=this.state.biography
+        if(this.state.editBio)Profile.biography=this.state.biography
         this.setState({editBio:!this.state.editBio})
     }
 
@@ -67,21 +57,108 @@ class Perfil extends React.Component{
 
     cancela(){
       this.setState({
-            Username: UserData.Username,
-            biography: UserData.Biografia,
-            editBio: false,
-            editName: false
+        Username: Profile.name,
+        biography: Profile.biography,
+        editBio: false,
+        editName: false,
       })
     }
 
     render(){
         return (
-          <PaperProvider>
-            <Headbar goBack={() => this.props.nav.navigate('Conversations')}/>
-            <View style={styles.container}>
+          <View>
+            <Appbar.Header style={{
+                zIndex: 1,
+                elevation: 2
+            }}>
+                <Appbar.BackAction onPress={() => { this.props.nav.goBack() }} />
+                <Appbar.Content title="Profile" />
+            </Appbar.Header>
+            <ScrollView
+                showsVerticalScrollIndicator={true}
+                contentContainerStyle={{
+                    flexGrow: 1,
+                    flexDirection: "column",
+                    backgroundColor: "#fff",
+
+                }}
+            >
+                <View style={{
+                    padding: 15,
+                    backgroundColor: "#fafafa",
+                    elevation: 2,
+                    display: "flex",
+                    flexDirection: "row"
+                }}>
+                  <View style={{
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        padding: 15,
+                        marginLeft: 10
+                  }}>
+                    <TouchableOpacity onPress={this.editImage}><Avatar.Image size={80} source={{ uri: Profile.avatar }} /></TouchableOpacity>
+                  </View>
+                    <View style={{
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        padding: 15,
+                        marginLeft: 10
+                    }}>
+                      <View style={{
+                          flexDirection: "row",
+                          justifyContent: "center",
+                          padding: 15,
+                          marginLeft: 10
+                      }}>
+                        <Title style={{ marginBottom: 0 }}>{this.state.Username}</Title>
+                        <Button icon="pencil" onPress={this.editUserName}/>
+                      </View>
+                      <View style={{
+                          flexDirection: "row",
+                          justifyContent: "center",
+                          padding: 15,
+                          marginLeft: 10
+                      }}>
+                        <Subheading style={{
+                            color: "#999"
+                        }}>{Profile.email}</Subheading>
+                        <Button icon="pencil" onPress={this.editUserName}/>
+                      </View>
+                    </View>
+                </View>
+
+                <View style={{
+                          flexDirection: "row",
+                          padding: 15,
+                          marginLeft: 10
+                      }}>
+                        <Subheading style={{
+                            color: "#999"
+                        }}>Biography</Subheading>
+                        <Button icon="pencil" onPress={this.editBiography}/>
+                        {this.state.editBio && <Button icon="cancel" onPress={this.cancela}/>}
+                      </View>
+                {(this.state.editBio)?(<TextInput 
+                                        multiline
+                                        style={{
+                                          width: '85%',
+                                        fontSize: 15,
+                                        marginLeft: '7%',
+                                      }} 
+                                        onChangeText={text => this.actualiza('biography',text)} 
+                                        value={this.state.biography}
+                                    />):
+                                    (<Text style={{
+                                      width: '85%',
+                                    fontSize: 15,
+                                    marginLeft: '7%',
+                                  }}>{this.state.biography}</Text>)}
+                  <Text></Text>
+            </ScrollView>
+            {/*<View style={styles.container}>
               <View style={styles.contcenter}>
                 <TouchableOpacity onPress={this.editImage} >
-                  <Image source={require("../assets/images/emperador.jpg")} style={styles.fotoPerfil}/>
+                  <Image source={{uri: Profile.avatar}} style={styles.fotoPerfil}/>
                 </TouchableOpacity>
               </View>
               <View style={{flex: 1}}>
@@ -107,8 +184,8 @@ class Perfil extends React.Component{
                   cancel={this.cancela}
                 />
               </View>
+                      </View>*/}
             </View>
-          </PaperProvider>
           )
     }
 }
