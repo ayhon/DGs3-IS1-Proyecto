@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Image, ScrollView } from "react-native";
 import conversationData from "../assets/demo/DummyConversations";
-import { Appbar, Avatar, FAB, List, Menu } from "react-native-paper";
+import { Appbar, Avatar, Caption, FAB, List, Menu } from "react-native-paper";
 import { Profile } from '../constants/DemoUser';
 
 export default function Conversations({ navigation }: any) {
@@ -11,6 +11,8 @@ export default function Conversations({ navigation }: any) {
     const closeMenu = () => setVisible(false);
 
     const avatarSize = 55;
+
+    const currentDate = new Date();
 
     return (
         <>
@@ -84,6 +86,12 @@ export default function Conversations({ navigation }: any) {
                                     )}
                                 />
                             )}
+                            right={(props) => {
+                                const newDate = new Date(currentDate);
+                                newDate.setTime(currentDate.getTime() - index * 1000 * 300);
+
+                                return <Caption>{newDate.getHours()}:{newDate.getMinutes() < 10 ? "0" + newDate.getMinutes() : newDate.getMinutes()}</Caption>;
+                            }}
                             onPress={() => { navigation.navigate('ChatScreen') }}
                         />
                     ))}
