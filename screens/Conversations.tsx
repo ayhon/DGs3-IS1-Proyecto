@@ -10,7 +10,7 @@ export default function Conversations({ navigation }: any) {
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
 
-    const avatarSize = 55;
+    const avatarSize = 50;
 
     const currentDate = new Date();
 
@@ -70,7 +70,7 @@ export default function Conversations({ navigation }: any) {
                                     {...props}
                                     style={{
                                         alignSelf: "center",
-                                        marginRight: 10,
+                                        marginRight: 5,
                                         backgroundColor: "#fff"
                                     }}
                                     size={avatarSize}
