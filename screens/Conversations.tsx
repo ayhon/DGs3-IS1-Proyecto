@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, Image, ScrollView } from "react-native";
 import conversationData from "../assets/demo/DummyConversations";
 import { Appbar, Avatar, FAB, List, Menu } from "react-native-paper";
+import { Profile } from '../constants/DemoUser';
 
 export default function Conversations({ navigation }: any) {
     const [visible, setVisible] = React.useState(false);
@@ -13,16 +14,19 @@ export default function Conversations({ navigation }: any) {
 
     return (
         <>
-            <Appbar.Header>
+            <Appbar.Header style={{
+                zIndex: 1,
+                elevation: 2
+            }}>
                 <Appbar.BackAction style={{ display: "none" }} />
                 <Avatar.Image
                     size={36}
-                    source={{ uri: "https://i.imgur.com/ibKSsXA.png" }}
+                    source={{ uri: Profile.avatar }}
                     style={{
                         marginLeft: 10
                     }}
                 />
-                <Appbar.Content title="Scich.at" />
+                <Appbar.Content title="Scich.at" subtitle={Profile.name} />
 
                 <Menu
                     visible={visible}
@@ -38,7 +42,9 @@ export default function Conversations({ navigation }: any) {
                     flexGrow: 1,
                     justifyContent: "space-between",
                     flexDirection: "column",
-                    paddingBottom: 50
+                    paddingBottom: 50,
+                    backgroundColor: "#fff",
+
                 }}
             >
                 <List.Section>

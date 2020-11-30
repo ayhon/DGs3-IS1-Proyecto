@@ -18,17 +18,14 @@ import {
 
 import * as LocalAuthentication from 'expo-local-authentication';
 
-const credentials = {
-    username: "Scichat",
-    passowrd: "12345",
-};
+import { Credentials } from '../constants/DemoUser';
 
 const LoginForm = ({ navigation, setCurrentScreen, toggleSnackBar }) => {
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
 
     const logIn = async () => {
-        if (!(username == credentials.username && password == credentials.passowrd)) {
+        if (!(username == Credentials.username && password == Credentials.passowrd)) {
             toggleSnackBar();
             return;
         }
@@ -38,7 +35,7 @@ const LoginForm = ({ navigation, setCurrentScreen, toggleSnackBar }) => {
         });
 
         console.log(localAuth);
-        
+
         if (!localAuth.success) {
             toggleSnackBar();
             return;

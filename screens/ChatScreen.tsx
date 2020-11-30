@@ -19,6 +19,7 @@ import {
     Surface
 } from "react-native-paper";
 import Chance from "chance";
+import { Profile } from "../constants/DemoUser";
 
 const chance = new Chance();
 
@@ -49,7 +50,8 @@ const SectionList = () => {
 
 
     return <Surface style={{
-        elevation: 2
+        elevation: 1,
+        zIndex: 1
     }}>
         <ScrollView horizontal={true} style={{
             flexGrow: 0,
@@ -128,8 +130,8 @@ const Chat = () => {
         setChatHistory([
             ...chatHistory,
             {
-                avatar: "https://i.imgur.com/ibKSsXA.png",
-                sender: "Scich.at",
+                avatar: Profile.avatar,
+                sender: Profile.name,
                 message: text,
                 date: new Date(),
             },
