@@ -2,24 +2,11 @@ import React from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import ConversationCard from "../components/ConversationCard";
 import conversationData from "../assets/demo/DummyConversations";
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import Headbar from '../components/headbar.js'
-
-// const accentColor = "#0039a2";
-
-const theme = {
-    ...DefaultTheme,
-    roundness: 2,
-    colors: {
-        ...DefaultTheme.colors,
-        primary: '#ddd56e',
-        accent: 'grey',
-    },
-};
 
 export default function Conversations({ navigation }: any) {
     return (
-        <PaperProvider theme={theme}>
+        <>
             <Headbar
                 hasBack={false}
                 back={() => alert("Adios")}
@@ -36,7 +23,7 @@ export default function Conversations({ navigation }: any) {
 
                 />
             </View>
-        </PaperProvider>
+        </>
     );
 }
 

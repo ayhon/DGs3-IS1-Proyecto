@@ -12,7 +12,6 @@ import {
     TextInput,
     Button,
     Title,
-    Provider as PaperProvider,
     Snackbar,
     Surface,
 } from "react-native-paper";
@@ -142,7 +141,7 @@ export default function AuthScreen({ navigation }: any) {
     const onDismissSnackBar = () => setVisible(false);
 
     return (
-        <PaperProvider>
+        <>
             <ImageBackground
                 source={{ uri: "https://i.imgur.com/6MMrZRV.png" }}
                 style={{
@@ -184,7 +183,7 @@ export default function AuthScreen({ navigation }: any) {
             <Snackbar visible={visible} onDismiss={onDismissSnackBar}>
                 Wrong credentials
             </Snackbar>
-        </PaperProvider>
+        </>
     );
 }
 
