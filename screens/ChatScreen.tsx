@@ -15,10 +15,64 @@ import {
     Avatar,
     List,
     Caption,
+    Chip,
+    Surface
 } from "react-native-paper";
 import Chance from "chance";
 
 const chance = new Chance();
+
+const SectionList = () => {
+    const [sections, setSections] = React.useState([
+        {
+            name: "All",
+            selected: true,
+            icon: "all-inclusive"
+        },
+        {
+            name: "Gaming",
+            icon: "cards-playing-outline"
+        },
+        {
+            name: "Anime",
+            icon: "video-vintage"
+        },
+        {
+            name: "Just talking",
+            icon: "phone-in-talk"
+        },
+        {
+            name: "Coding",
+            icon: "code-tags"
+        }
+    ]);
+
+
+    return <Surface style={{
+        elevation: 2
+    }}>
+        <ScrollView horizontal={true} style={{
+            flexGrow: 0,
+            backgroundColor: "#fff",
+            padding: 10,
+        }}>
+            {
+                sections.map((item, index) => (
+                    <Chip
+                        icon={item.icon ? item.icon : "tag"}
+                        selected={item.selected} key={index.toString()}
+                        style={{ marginRight: 10 }}
+                        onPress={() => console.log('WIP xD')}
+                    >
+                        {item.name}
+                    </Chip>
+                ))
+            }
+        </ScrollView >
+
+    </Surface>
+
+}
 
 const ChatHeader = ({ navigation }: any) => {
     const _goBack = () => {
@@ -86,7 +140,13 @@ const Chat = () => {
 
     return (
         <>
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={
+                {
+                    ...styles.container,
+                    alignContent: "flex-end",
+                    flexGrow: 1
+                }
+            }>
                 <ScrollView
                     onContentSizeChange={() =>
                         scrollViewRef?.current?.scrollToEnd({ animated: true })
@@ -163,11 +223,11 @@ const Chat = () => {
 export default function ChatScreen({ navigation }) {
     return (
         <KeyboardAvoidingView
-
             behavior={Platform.OS == "ios" ? "padding" : undefined}
             style={styles.container}
         >
             <ChatHeader navigation={navigation} />
+            <SectionList />
             <Chat />
         </KeyboardAvoidingView>
     );
@@ -176,7 +236,6 @@ export default function ChatScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignContent: "flex-end",
     },
     scrollView: {
         backgroundColor: "white",
