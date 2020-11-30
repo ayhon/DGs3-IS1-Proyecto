@@ -1,7 +1,7 @@
 //import { StatusBar } from 'expo-status-bar';
 import {DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import React from 'react';
-import { Text, View, Image, Button, TouchableOpacity } from 'react-native';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
 import UserData from '../UserData';
 import styles from "../components/Style.js"
 import Campo from '../components/Item.js'
@@ -26,7 +26,7 @@ const Headbar = () => {
       <Appbar.Header>
           <Appbar.BackAction onPress={_goBack} />
           <Avatar.Image size={36} source={require("../assets/images/icon.png")} />
-          <Appbar.Content title="Scichat Oficial" subtitle="Perfil de Usuario" />
+          <Appbar.Content title="Perfil de usuario" subtitle="Perfil de Usuario" />
           <Appbar.Action icon="dots-vertical" onPress={_handleMore} />
       </Appbar.Header>
   );

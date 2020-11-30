@@ -1,4 +1,4 @@
-import React, { useRef, createRef } from "react";
+import React, { useRef } from "react";
 import {
   Animated,
   Image,
@@ -15,25 +15,69 @@ import {
   Appbar,
   Avatar,
   List,
-  Card,
-  DefaultTheme,
-  IconButton,
-  Provider as PaperProvider,
-  Surface,
   Caption,
+  Chip,
+  Surface,
 } from "react-native-paper";
 import Chance from "chance";
+// import { Profile } from "../constants/DemoUser";
 
 const chance = new Chance();
-const theme = {
-  ...DefaultTheme,
-  roundness: 2,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: "#FFC107",
-    accent: "#607D8B",
-    background: "#FFF",
-  },
+
+const SectionList = () => {
+  const [sections, setSections] = React.useState([
+    {
+      name: "All",
+      selected: true,
+      icon: "all-inclusive",
+    },
+    {
+      name: "Gaming",
+      icon: "cards-playing-outline",
+    },
+    {
+      name: "Anime",
+      icon: "video-vintage",
+    },
+    {
+      name: "Just talking",
+      icon: "phone-in-talk",
+    },
+    {
+      name: "Coding",
+      icon: "code-tags",
+    },
+  ]);
+
+  return (
+    <Surface
+      style={{
+        elevation: 1,
+        zIndex: 1,
+      }}
+    >
+      <ScrollView
+        horizontal={true}
+        style={{
+          flexGrow: 0,
+          backgroundColor: "#fff",
+          padding: 10,
+        }}
+      >
+        {sections.map((item, index) => (
+          <Chip
+            icon={item.icon ? item.icon : "tag"}
+            selected={item.selected}
+            key={index.toString()}
+            style={{ marginRight: 10 }}
+            onPress={() => console.log("WIP xD")}
+          >
+            {item.name}
+          </Chip>
+        ))}
+      </ScrollView>
+    </Surface>
+  );
 };
 
 const ChatHeader = ({ navigation }: any) => {
@@ -114,6 +158,7 @@ const Chat = () => {
 
     setText("");
   };
+
   React.useEffect(() => {
     if (buttonsShown) {
       animation(1).start();
@@ -135,7 +180,15 @@ const Chat = () => {
 
   return (
     <>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView
+        style={[
+          styles.container,
+          {
+            alignContent: "flex-end",
+            flexGrow: 1,
+          },
+        ]}
+      >
         <ScrollView
           onContentSizeChange={() =>
             scrollViewRef?.current?.scrollToEnd({ animated: true })
@@ -227,15 +280,14 @@ const Chat = () => {
 
 export default function ChatScreen({ navigation }: any) {
   return (
-    <PaperProvider theme={theme}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : undefined}
-        style={styles.container}
-      >
-        <ChatHeader navigation={navigation} />
-        <Chat />
-      </KeyboardAvoidingView>
-    </PaperProvider>
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : undefined}
+      style={styles.container}
+    >
+      <ChatHeader navigation={navigation} />
+      <SectionList />
+      <Chat />
+    </KeyboardAvoidingView>
   );
 }
 
