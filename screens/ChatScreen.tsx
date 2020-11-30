@@ -117,18 +117,19 @@ const Chat = () => {
     const scrollViewRef = useRef<ScrollView>();
 
     const inputReference = useRef<TextInput>();
-    const animatedValue = React.useState(new Animated.Value(0))[0];
+    const toolbarXPos = React.useState(new Animated.Value(0))[0];
     const [buttonsShown, setButtonsShown] = React.useState(false);
-    const animation = (toValue: any): any => {
-        return Animated.timing(animatedValue, {
+
+    const toolbarAnimation = (toValue: any): any => {
+        return Animated.timing(toolbarXPos, {
             duration: 200,
             toValue,
             useNativeDriver: false,
         });
     };
-    const horizontalDisplacement = animatedValue.interpolate({
+    const horizontalDisplacement = toolbarXPos.interpolate({
         inputRange: [0, 1],
-        outputRange: [-50, 50],
+        outputRange: [0, 50],
     });
 
     const avatarSize = 40;
@@ -165,15 +166,22 @@ const Chat = () => {
         setText("");
     };
 
-    const [viewOpacity, setViewOpacity] = React.useState(1);
+    const opacityValue = React.useState(new Animated.Value(1))[0];
+    const opacityAnimation = (toValue: any): any => {
+        return Animated.timing(opacityValue, {
+            duration: 200,
+            toValue,
+            useNativeDriver: false,
+        });
+    };
 
     React.useEffect(() => {
         if (buttonsShown) {
-            animation(1).start();
-            setViewOpacity(0.2);
+            toolbarAnimation(1).start();
+            opacityAnimation(0.2).start();
         } else {
-            animation(0).start();
-            setViewOpacity(1);
+            toolbarAnimation(0).start();
+            opacityAnimation(1).start();
         }
     }, [buttonsShown]);
 
@@ -208,11 +216,14 @@ const Chat = () => {
                         flexGrow: 1,
                         justifyContent: "space-between",
                         flexDirection: "column",
-                        opacity: viewOpacity
                     }}
                     style={styles.scrollView}
                 >
-                    <View style={{ flex: 1, justifyContent: "flex-end" }}>
+                    <Animated.View style={{
+                        flex: 1,
+                        justifyContent: "flex-end",
+                        opacity: opacityValue
+                    }} >
                         {chatHistory.map((chatMessage, index) => (
                             <List.Item
                                 title={chatMessage.sender}
@@ -248,7 +259,7 @@ const Chat = () => {
                                 key={index}
                             />
                         ))}
-                    </View>
+                    </Animated.View>
                 </ScrollView>
             </SafeAreaView>
 
