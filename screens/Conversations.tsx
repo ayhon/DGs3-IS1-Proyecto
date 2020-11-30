@@ -44,44 +44,42 @@ export default function Conversations({ navigation }: any) {
                 <List.Section>
                     <List.Subheader>Chats</List.Subheader>
                     {conversationData.map((conversation, index) => (
-                        <>
-                            <List.Item
-                                style={{
-                                    marginBottom: 5,
-                                    paddingHorizontal: 10
-                                }}
-                                title={conversation.name}
-                                titleStyle={{
-                                    marginBottom: 5,
-                                    fontWeight: "600"
-                                }}
-                                description={conversation.lastMsg}
-                                descriptionNumberOfLines={1000}
-                                left={(props) => (
-                                    <Avatar.Image
-                                        {...props}
-                                        style={{
-                                            alignSelf: "center",
-                                            marginRight: 10,
-                                            backgroundColor: "#fff"
-                                        }}
-                                        size={avatarSize}
-                                        source={() => (
-                                            <Image
-                                                source={{ uri: conversation.img }}
-                                                style={{
-                                                    width: avatarSize,
-                                                    height: avatarSize,
-                                                    borderRadius: avatarSize,
-                                                }}
-                                            />
-                                        )}
-                                    />
-                                )}
-                                key={index}
-                                onPress={() => { navigation.navigate('ChatScreen') }}
-                            />
-                        </>
+                        <List.Item
+                            key={index.toString()}
+                            style={{
+                                marginBottom: 5,
+                                paddingHorizontal: 10
+                            }}
+                            title={conversation.name}
+                            titleStyle={{
+                                marginBottom: 5,
+                                fontWeight: "600"
+                            }}
+                            description={conversation.lastMsg}
+                            descriptionNumberOfLines={1000}
+                            left={(props) => (
+                                <Avatar.Image
+                                    {...props}
+                                    style={{
+                                        alignSelf: "center",
+                                        marginRight: 10,
+                                        backgroundColor: "#fff"
+                                    }}
+                                    size={avatarSize}
+                                    source={() => (
+                                        <Image
+                                            source={{ uri: conversation.img }}
+                                            style={{
+                                                width: avatarSize,
+                                                height: avatarSize,
+                                                borderRadius: avatarSize,
+                                            }}
+                                        />
+                                    )}
+                                />
+                            )}
+                            onPress={() => { navigation.navigate('ChatScreen') }}
+                        />
                     ))}
                 </List.Section>
             </ScrollView>
@@ -99,10 +97,3 @@ export default function Conversations({ navigation }: any) {
         </>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingBottom: 20
-    },
-});
