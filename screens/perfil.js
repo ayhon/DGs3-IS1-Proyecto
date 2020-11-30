@@ -17,14 +17,13 @@ const theme = {
   },
 };
 
-const Headbar = () => {
-  const _goBack = () => console.log('Went back');
+const Headbar = (props) => {
 
   const _handleMore = () => console.log('Shown more');
 
   return (
       <Appbar.Header>
-          <Appbar.BackAction onPress={_goBack} />
+          <Appbar.BackAction onPress={props.goBack} />
           <Avatar.Image size={36} source={require("../assets/images/icon.png")} />
           <Appbar.Content title="Perfil de usuario" subtitle="Perfil de Usuario" />
           <Appbar.Action icon="dots-vertical" onPress={_handleMore} />
@@ -40,7 +39,7 @@ class Perfil extends React.Component{
             Username: UserData.Username,
             biography: UserData.Biografia,
             editBio: false,
-            editName: false
+            editName: false,
         }
         this.editBiography=this.editBiography.bind(this)
         this.editUserName=this.editUserName.bind(this)
@@ -77,8 +76,8 @@ class Perfil extends React.Component{
 
     render(){
         return (
-          <PaperProvider theme={theme}>
-            <Headbar/>
+          <PaperProvider>
+            <Headbar goBack={() => this.props.nav.navigate('Conversations')}/>
             <View style={styles.container}>
               <View style={styles.contcenter}>
                 <TouchableOpacity onPress={this.editImage} >
@@ -89,7 +88,7 @@ class Perfil extends React.Component{
                 <Campo 
                   name="Username" 
                   value={this.state.Username} 
-                  user={true}
+                  user={this.props.user}
                   edit={this.state.editName} 
                   onPress={this.editUserName} 
                   onChange={this.actualiza} 
@@ -100,7 +99,7 @@ class Perfil extends React.Component{
                 <Campo 
                   name="biography" 
                   value={this.state.biography} 
-                  user={true}
+                  user={this.props.user}
                   edit={this.state.editBio} 
                   onPress={this.editBiography} 
                   onChange={this.actualiza} 
