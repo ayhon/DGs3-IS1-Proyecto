@@ -34,7 +34,7 @@ export default function Conversations({ navigation }: any) {
                     visible={visible}
                     onDismiss={closeMenu}
                     anchor={<Appbar.Action icon="dots-vertical" onPress={openMenu} />}>
-                    <Menu.Item icon="exit-to-app" onPress={() => { navigation.navigate('AuthScreen') }} title="Log out" />
+                    <Menu.Item icon="exit-to-app" onPress={() => { closeMenu(); navigation.navigate('AuthScreen') }} title="Log out" />
                 </Menu>
             </Appbar.Header>
 
