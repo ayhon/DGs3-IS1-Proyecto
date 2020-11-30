@@ -171,11 +171,13 @@ const Chat = () => {
                         {chatHistory.map((chatMessage, index) => (
                             <List.Item
                                 title={chatMessage.sender}
-                                titleStyle={styles.chatTitle}
+                                titleStyle={(Profile.name===chatMessage.sender)?styles.userChatTitle:styles.chatTitle}
                                 description={chatMessage.message}
-                                descriptionStyle={styles.chatBody}
+                                descriptionStyle={(Profile.name===chatMessage.sender)?styles.userChatBody:styles.chatBody}
                                 descriptionNumberOfLines={1000}
-                                left={(props) => (
+                                left={(props) => {
+                                    
+                                    if(Profile.name!=chatMessage.sender) return (
                                     <Avatar.Image
                                         {...props}
                                         style={{ alignSelf: "center", marginRight: 5 }}
@@ -191,15 +193,44 @@ const Chat = () => {
                                             />
                                         )}
                                     />
-                                )}
-                                right={(props) => (
-                                    <Caption>
-                                        {chatMessage.date.getHours()}:
-                                        {chatMessage.date.getMinutes() < 10
-                                            ? "0" + chatMessage.date.getMinutes()
-                                            : chatMessage.date.getMinutes()}
-                                    </Caption>
-                                )}
+                                )
+                                                else return(
+                                                    <Caption>
+                                                    {chatMessage.date.getHours()}:
+                                                    {chatMessage.date.getMinutes() < 10
+                                                        ? "0" + chatMessage.date.getMinutes()
+                                                        : chatMessage.date.getMinutes()}
+                                                    </Caption>
+                                                )
+                                }}
+                                right={(props) =>{
+                                    
+                                    if(Profile.name===chatMessage.sender) return (
+                                    <Avatar.Image
+                                        {...props}
+                                        style={{ alignSelf: "center", marginRight: 5 }}
+                                        size={avatarSize}
+                                        source={() => (
+                                            <Image
+                                                source={{ uri: chatMessage.avatar }}
+                                                style={{
+                                                    width: avatarSize,
+                                                    height: avatarSize,
+                                                    borderRadius: avatarSize,
+                                                }}
+                                            />
+                                        )}
+                                    />
+                                )
+                                                else return(
+                                                    <Caption>
+                                                    {chatMessage.date.getHours()}:
+                                                    {chatMessage.date.getMinutes() < 10
+                                                        ? "0" + chatMessage.date.getMinutes()
+                                                        : chatMessage.date.getMinutes()}
+                                                    </Caption>
+                                                )
+                                }}
                                 key={index}
                             />
                         ))}
@@ -253,7 +284,7 @@ const Chat = () => {
     );
 };
 
-export default function ChatScreen({ navigation }: any) {
+export default function UserChatScreen({ navigation }: any) {
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : undefined}
@@ -279,10 +310,24 @@ const styles = StyleSheet.create({
         marginBottom: 2,
         marginTop: 0,
     },
+    userChatTitle: {
+        fontSize: 14,
+        fontWeight: "bold",
+        marginBottom: 2,
+        marginTop: 0,
+        textAlign: "right",
+        marginRight: "5%"
+    },
     chatBody: {
         fontSize: 12,
         fontWeight: "400",
         color: "#1a1a1a",
+    },
+    userChatBody: {
+        textAlign: "right",
+        marginRight: "5%",
+        fontSize: 12,
+        fontWeight: "400",
     },
     floatingButtonsContainer: {
         position: "absolute",
