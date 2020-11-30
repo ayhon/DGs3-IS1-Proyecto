@@ -34,7 +34,7 @@ export default function Conversations({ navigation }: any) {
                     visible={visible}
                     onDismiss={closeMenu}
                     anchor={<Appbar.Action icon="dots-vertical" onPress={openMenu} />}>
-                    <Menu.Item onPress={() => { navigation.navigate('AuthScreen') }} title="Log out" />
+                    <Menu.Item icon="exit-to-app" onPress={() => { navigation.navigate('AuthScreen') }} title="Log out" />
                 </Menu>
             </Appbar.Header>
 
@@ -61,7 +61,7 @@ export default function Conversations({ navigation }: any) {
                             title={conversation.name}
                             titleStyle={{
                                 marginBottom: 5,
-                                fontWeight: "600"
+                                fontWeight: "bold"
                             }}
                             description={conversation.lastMsg}
                             descriptionNumberOfLines={1000}
