@@ -9,7 +9,7 @@ export default function Conversations({ navigation }: any) {
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
 
-    const avatarSize = 60;
+    const avatarSize = 55;
 
     return (
         <>
