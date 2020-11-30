@@ -1,5 +1,6 @@
-import React, { useRef } from "react";
+import React, { useRef, createRef } from "react";
 import {
+  Animated,
   Image,
   Platform,
   SafeAreaView,
@@ -70,6 +71,20 @@ const Chat = () => {
   const [chatHistory, setChatHistory] = React.useState<ChatMessage[]>([]);
   const [text, setText] = React.useState("");
   const scrollViewRef = useRef<ScrollView>();
+  const inputReference = useRef();
+  const animatedValue = React.useState(new Animated.Value(0))[0];
+  const [buttonsShown, setButtonsShown] = React.useState(false);
+  const animation = (toValue: any): any => {
+    return Animated.timing(animatedValue, {
+      duration: 200,
+      toValue,
+      useNativeDriver: false,
+    });
+  };
+  const horizontalDisplacement = animatedValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [10, -50],
+  });
 
   const avatarSize = 40;
 
@@ -86,6 +101,7 @@ const Chat = () => {
   }
 
   const onSubmitEditing = () => {
+    if (text.trim() === "") return;
     setChatHistory([
       ...chatHistory,
       {
@@ -97,6 +113,24 @@ const Chat = () => {
     ]);
 
     setText("");
+  };
+  React.useEffect(() => {
+    if (buttonsShown) {
+      animation(1).start();
+    } else {
+      animation(0).start();
+    }
+  }, [buttonsShown]);
+
+  const onLongSendPress = () => {
+    setButtonsShown((prevVal) => !prevVal);
+    console.log("Options for LaTeX, Graph and Code");
+  };
+
+  const focusTextInput = () => {
+    setButtonsShown(false);
+    if (inputReference.current) inputReference?.current?.focus();
+    console.log("Focus text input");
   };
 
   return (
@@ -139,7 +173,7 @@ const Chat = () => {
                     )}
                   />
                 )}
-                right={(props) => (
+                right={() => (
                   <Caption>{chatMessage.date.toLocaleTimeString()}</Caption>
                 )}
                 key={index}
@@ -148,8 +182,23 @@ const Chat = () => {
           </View>
         </ScrollView>
       </SafeAreaView>
+
+      <Animated.View
+        style={[
+          styles.floatingButtonsContainer,
+          {
+            transform: [{ translateX: horizontalDisplacement }],
+          },
+        ]}
+      >
+        <FAB small onPress={focusTextInput} icon="math-integral" />
+        <FAB small onPress={focusTextInput} icon="xml" />
+        <FAB small onPress={focusTextInput} icon="graphql" />
+      </Animated.View>
+
       <View style={{ flexDirection: "row", padding: 10 }}>
         <TextInput
+          ref={inputReference}
           style={{
             height: 40,
             flex: 1,
@@ -166,16 +215,17 @@ const Chat = () => {
         />
         <FAB
           small
-          icon="send-circle"
+          icon="send"
           onPress={onSubmitEditing}
-          disabled={text.trim() == ""}
+          // disabled={text.trim() == ""}
+          onLongPress={onLongSendPress}
         />
       </View>
     </>
   );
 };
 
-export default function ChatScreen({ navigation }) {
+export default function ChatScreen({ navigation }: any) {
   return (
     <PaperProvider theme={theme}>
       <KeyboardAvoidingView
@@ -209,5 +259,13 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#1a1a1a",
   },
+  floatingButtonsContainer: {
+    position: "absolute",
+    bottom: 60,
+    height: 130,
+    justifyContent: "space-between",
+    right: -40,
+    // backgroundColor: "coral",
+    // opacity: 0.8,
+  },
 });
-
