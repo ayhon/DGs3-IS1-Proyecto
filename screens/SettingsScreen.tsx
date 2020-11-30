@@ -41,7 +41,9 @@ export default function Conversations({ navigation }: any) {
                         marginLeft: 10
                     }}>
                         <Title style={{ marginBottom: 0 }}>{Profile.name}</Title>
-                        <Subheading>{Profile.email}</Subheading>
+                        <Subheading style={{
+                            color: "#999"
+                        }}>{Profile.email}</Subheading>
                     </View>
                 </View>
 
