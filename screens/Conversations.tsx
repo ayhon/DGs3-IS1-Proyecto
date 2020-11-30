@@ -1,15 +1,15 @@
 import React from "react";
-import { StyleSheet, View, FlatList } from "react-native";
-import ConversationCard from "../components/ConversationCard";
+import { StyleSheet, View, Image, ScrollView } from "react-native";
 import conversationData from "../assets/demo/DummyConversations";
-import Headbar from '../components/headbar.js'
-import { Appbar, Avatar, Menu } from "react-native-paper";
+import { Appbar, Avatar, FAB, List, Menu } from "react-native-paper";
 
 export default function Conversations({ navigation }: any) {
     const [visible, setVisible] = React.useState(false);
 
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
+
+    const avatarSize = 60;
 
     return (
         <>
@@ -30,18 +30,72 @@ export default function Conversations({ navigation }: any) {
                     anchor={<Appbar.Action icon="dots-vertical" onPress={openMenu} />}>
                     <Menu.Item onPress={() => { navigation.navigate('AuthScreen') }} title="Log out" />
                 </Menu>
-
             </Appbar.Header>
-            <View style={styles.container}>
-                <FlatList
-                    data={conversationData}
-                    renderItem={({ item }) => {
-                        return <ConversationCard data={item} navigation={navigation} />;
-                    }}
-                    keyExtractor={item => item.key.toString()}
 
-                />
-            </View>
+            <ScrollView
+                showsVerticalScrollIndicator={true}
+                contentContainerStyle={{
+                    flexGrow: 1,
+                    justifyContent: "space-between",
+                    flexDirection: "column",
+                    paddingBottom: 50
+                }}
+            >
+                <List.Section>
+                    <List.Subheader>Chats</List.Subheader>
+                    {conversationData.map((conversation, index) => (
+                        <>
+                            <List.Item
+                                style={{
+                                    marginBottom: 5,
+                                    paddingHorizontal: 10
+                                }}
+                                title={conversation.name}
+                                titleStyle={{
+                                    marginBottom: 5,
+                                    fontWeight: "600"
+                                }}
+                                description={conversation.lastMsg}
+                                descriptionNumberOfLines={1000}
+                                left={(props) => (
+                                    <Avatar.Image
+                                        {...props}
+                                        style={{
+                                            alignSelf: "center",
+                                            marginRight: 10,
+                                            backgroundColor: "#fff"
+                                        }}
+                                        size={avatarSize}
+                                        source={() => (
+                                            <Image
+                                                source={{ uri: conversation.img }}
+                                                style={{
+                                                    width: avatarSize,
+                                                    height: avatarSize,
+                                                    borderRadius: avatarSize,
+                                                }}
+                                            />
+                                        )}
+                                    />
+                                )}
+                                key={index}
+                                onPress={() => { navigation.navigate('ChatScreen') }}
+                            />
+                        </>
+                    ))}
+                </List.Section>
+            </ScrollView>
+            <FAB
+                style={{
+                    position: "absolute",
+                    right: 20,
+                    bottom: 20,
+                }}
+                small
+                icon="plus"
+                label="Start a conversation"
+                onPress={() => console.log('Pressed')}
+            />
         </>
     );
 }
@@ -49,8 +103,6 @@ export default function Conversations({ navigation }: any) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#ebebeb",
+        paddingBottom: 20
     },
 });
