@@ -13,13 +13,12 @@ import {
 
 const theme = {
     ...DefaultTheme,
-    roundness: 2,
     colors: {
         ...DefaultTheme.colors,
-        primary: "#FFC107",
-        accent: "#607D8B",
+        primary: "#2a9d8f",
+        accent: "#e9c46a",
         background: "#FFF",
-    },
+    }
 };
 
 export default function App() {
