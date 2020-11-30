@@ -114,15 +114,20 @@ const Chat = () => {
 
     const avatarSize = 40;
 
+    const currentDate = new Date();
+
     if (!chatHistory.length) {
         /// Generar mensajes de chat aleatorios
-        for (let i = 0; i < 10; ++i) {
+        for (let i = 0; i < 20; ++i) {
+            const newDate = new Date(currentDate);
+            newDate.setTime(currentDate.getTime() - 1000 * 30 * (20 - i));
+
             chatHistory.push({
                 sender: chance.name(),
                 message: chance.sentence(),
                 avatar: `https://picsum.photos/${avatarSize}?${Math.random()}`,
-                date: new Date(),
-            });
+                date: newDate,
+            })
         }
     }
 
@@ -187,7 +192,7 @@ const Chat = () => {
                                     />
                                 )}
                                 right={(props) => (
-                                    <Caption>{chatMessage.date.toLocaleTimeString()}</Caption>
+                                    <Caption>{chatMessage.date.getHours()}:{chatMessage.date.getMinutes() < 10 ? "0" + chatMessage.date.getMinutes() : chatMessage.date.getMinutes()}</Caption>
                                 )}
                                 key={index}
                             />
