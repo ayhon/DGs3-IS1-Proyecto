@@ -179,6 +179,7 @@ export default function ChatScreen({ navigation }) {
   return (
     <PaperProvider theme={theme}>
       <KeyboardAvoidingView
+      
         behavior={Platform.OS == "ios" ? "padding" : undefined}
         style={styles.container}
       >
