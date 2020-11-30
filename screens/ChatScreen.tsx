@@ -128,7 +128,7 @@ const Chat = () => {
     };
     const horizontalDisplacement = animatedValue.interpolate({
         inputRange: [0, 1],
-        outputRange: [10, -50],
+        outputRange: [-50, 50],
     });
 
     const avatarSize = 40;
@@ -165,11 +165,15 @@ const Chat = () => {
         setText("");
     };
 
+    const [viewOpacity, setViewOpacity] = React.useState(1);
+
     React.useEffect(() => {
         if (buttonsShown) {
             animation(1).start();
+            setViewOpacity(0.2);
         } else {
             animation(0).start();
+            setViewOpacity(1);
         }
     }, [buttonsShown]);
 
@@ -204,6 +208,7 @@ const Chat = () => {
                         flexGrow: 1,
                         justifyContent: "space-between",
                         flexDirection: "column",
+                        opacity: viewOpacity
                     }}
                     style={styles.scrollView}
                 >
@@ -261,6 +266,11 @@ const Chat = () => {
             </Animated.View>
 
             <View style={{ flexDirection: "row", padding: 10 }}>
+                <FAB
+                    small
+                    icon="plus"
+                    onPress={onLongSendPress}
+                />
                 <TextInput
                     style={{
                         height: 40,
@@ -269,7 +279,7 @@ const Chat = () => {
                         borderRadius: 40,
                         borderWidth: 0,
                         paddingHorizontal: 15,
-                        marginRight: 5,
+                        marginHorizontal: 5,
                     }}
                     value={text}
                     placeholder="Type a message..."
@@ -281,8 +291,7 @@ const Chat = () => {
                     small
                     icon="send"
                     onPress={onSubmitEditing}
-                    // disabled={text.trim() == ""}
-                    onLongPress={onLongSendPress}
+                    disabled={text.trim() == ""}
                 />
             </View>
         </>
@@ -323,10 +332,10 @@ const styles = StyleSheet.create({
     },
     floatingButtonsContainer: {
         position: "absolute",
-        bottom: 60,
+        bottom: 70,
         height: 130,
         justifyContent: "space-between",
-        right: -40,
+        left: -40,
         // backgroundColor: "coral",
         // opacity: 0.8,
     },
