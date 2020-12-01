@@ -107,7 +107,6 @@ class Perfil extends React.Component {
               <View style={{
                 flexDirection: "row",
                 justifyContent: "center",
-                padding: 15,
                 marginLeft: 10
               }}>
                 <Title style={{ marginBottom: 0 }}>{this.state.Username}</Title>
@@ -116,7 +115,6 @@ class Perfil extends React.Component {
               <View style={{
                 flexDirection: "row",
                 justifyContent: "center",
-                padding: 15,
                 marginLeft: 10
               }}>
                 <Subheading style={{
