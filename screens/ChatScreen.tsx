@@ -319,7 +319,7 @@ const ChatMessage = ({ message, isGroup }: any) => {
 
     const MessageAvatar = () => (
         <Avatar.Image
-            style={{ alignSelf: "center", marginRight: 5 }}
+            style={{ alignSelf: "center" }}
             size={avatarSize}
             source={() => (
                 <Image
@@ -385,6 +385,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginBottom: 2,
         marginTop: 0,
+        marginLeft: 5
     },
     userChatTitle: {
         fontSize: 14,
@@ -392,16 +393,17 @@ const styles = StyleSheet.create({
         marginBottom: 2,
         marginTop: 0,
         textAlign: "right",
-        marginRight: "5%"
+        marginRight: 10
     },
     chatBody: {
         fontSize: 12,
         fontWeight: "400",
         color: "#1a1a1a",
+        marginLeft: 5
     },
     userChatBody: {
         textAlign: "right",
-        marginRight: "5%",
+        marginRight: 10,
         fontSize: 12,
         fontWeight: "400",
     },
