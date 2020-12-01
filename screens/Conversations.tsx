@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Image, ScrollView } from "react-native";
-import conversationData from "../assets/demo/DummyConversations";
+import { conversations } from "../assets/demo/DummyConversations";
 import { Appbar, Avatar, Caption, FAB, List, Menu } from "react-native-paper";
 import { Profile } from '../constants/DemoUser';
 
@@ -54,7 +54,7 @@ export default function Conversations({ navigation }: any) {
             >
                 <List.Section>
                     <List.Subheader>Chats</List.Subheader>
-                    {conversationData.map((conversation, index) => (
+                    {conversations.map((conversation, index) => (
                         <List.Item
                             key={index.toString()}
                             style={{
@@ -95,7 +95,7 @@ export default function Conversations({ navigation }: any) {
 
                                 return <Caption>{newDate.getHours()}:{newDate.getMinutes() < 10 ? "0" + newDate.getMinutes() : newDate.getMinutes()}</Caption>;
                             }}
-                            onPress={() => { navigation.navigate('ChatScreen') }}
+                            onPress={() => { navigation.navigate('ChatScreen', conversation) }}
                         />
                     ))}
                 </List.Section>

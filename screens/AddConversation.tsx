@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, View, Image, ScrollView } from "react-native";
-import conversationData from "../assets/demo/DummyConversations";
 import { Appbar, Avatar, Caption, FAB, List, Menu } from "react-native-paper";
 import Chance from "chance";
 
@@ -21,7 +20,7 @@ export default function Conversations({ navigation }: any) {
         for (let i = 0; i < 20; ++i) {
             let newContact: iProfile = {
                 name: chance.name(),
-                avatar: `https://picsum.photos/${avatarSize}?${Math.random()}`,
+                avatar: `https://picsum.photos/seed/${Math.random()}/${avatarSize}/${avatarSize}`,
             }
 
             if (chance.bool()) {
@@ -100,7 +99,12 @@ export default function Conversations({ navigation }: any) {
                                 )}
                             />
                         )}
-                        onPress={() => { navigation.navigate('ChatScreen') }}
+                        onPress={() => {
+                            navigation.navigate('ChatScreen', {
+                                name: contact.name,
+                                img: contact.avatar
+                            })
+                        }}
                     />
                 ))}
             </ScrollView>
